@@ -25,7 +25,7 @@ When a dataset contains unknown inidividuals, the identity entry should be chang
 
 ## Optional columns
 
-The following columns may be present in the dataframe. Besides these columns, it is possible to define additional columns. For values that involve coordinates in images, the dimensions are given in pixels (rather than fraction of total image dimension).  
+The following columns may be present in the dataframe. Besides these columns, it is possible to define additional columns. Where image dimensions are called for, they are given in units of pixels (rather than fraction of total image). 
 
 | Column | Type | Description |
 |--------|------|-------------|

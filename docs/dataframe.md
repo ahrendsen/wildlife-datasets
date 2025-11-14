@@ -25,7 +25,7 @@ When a dataset contains unknown inidividuals, the identity entry should be chang
 
 ## Optional columns
 
-The following columns may be present in the dataframe. Besides these columns, it is possible to define additional columns.
+The following columns may be present in the dataframe. If they are present, they will enable additional functionality of WildlifeDatasets. For example, if the date column is present, it will enable time-aware dataset splits. Additional columns of your choice may also be included and will not break any functionality. Note that variables that specify image coordinates should be given in pixel value (as opposed to percent or fraction of total image value). 
 
 | Column | Type | Description |
 |--------|------|-------------|

@@ -531,7 +531,8 @@ class WildlifeDataset:
             self.check_files_exist(df[self.col_path])
             self.check_files_names(df[self.col_path])
             if 'segmentation' in df.columns:
-                self.check_files_exist(df['segmentation'])
+                if isinstance(df.iloc[0]['segmentation'], (str)): # Consider adding pathlib support
+                    self.check_files_exist(df['segmentation'])
         return df
 
     def rename_column(self, df: pd.DataFrame, name_old, name_new):
@@ -861,3 +862,4 @@ class WildlifeDataset:
 # Alias for WildlifeDataset
 class DatasetFactory(WildlifeDataset):
     pass
+

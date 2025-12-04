@@ -53,6 +53,7 @@ class WildlifeDataset:
             update_wrong_labels: bool = True,
             transform: Optional[Callable] = None,
             img_load: str = "full",
+            bbox_padding: int = 0, 
             remove_unknown: bool = False,
             remove_columns: bool = False,
             check_files: bool = True,
@@ -89,6 +90,7 @@ class WildlifeDataset:
         self.root = root
         self.col_path = col_path
         self.col_label = col_label
+        self.bbox_padding = bbox_padding
         self.remove_columns = remove_columns
         self.check_files = check_files
         # If df is not provided, create it
@@ -269,7 +271,7 @@ class WildlifeDataset:
         # Crop to bounding box
         elif self.img_load == "bbox":
             if not np.any(pd.isnull(bbox)):
-                img = img.crop((bbox[0], bbox[1], bbox[0] + bbox[2], bbox[1] + bbox[3]))
+                img = img.crop((bbox[0]-self.bbox_padding, bbox[1]-self.bbox_padding, bbox[0] + bbox[2]+self.bbox_padding, bbox[1] + bbox[3]+self.bbox_padding))
         # Mask background using segmentation mask and crop to bounding box.
         elif self.img_load == "bbox_mask":
             if (not np.any(pd.isnull(segmentation))):
@@ -861,3 +863,4 @@ class WildlifeDataset:
 # Alias for WildlifeDataset
 class DatasetFactory(WildlifeDataset):
     pass
+

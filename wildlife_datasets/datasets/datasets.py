@@ -285,7 +285,7 @@ class WildlifeDataset:
         elif self.img_load == "obb":
             if not np.any(pd.isnull(obb)):
                 center = (obb[0],obb[1])
-                angle = obb[4]*180/math.pi
+                angle = obb[4]*180/np.pi
                 w_b = obb[2]
                 h_b = obb[3]
                 left = center[0] - w_b/2.
@@ -885,6 +885,7 @@ class WildlifeDataset:
 # Alias for WildlifeDataset
 class DatasetFactory(WildlifeDataset):
     pass
+
 
 
 

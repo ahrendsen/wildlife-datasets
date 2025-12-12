@@ -293,7 +293,7 @@ class WildlifeDataset:
                 right = center[0] + w_b/2.
                 lower = center[1] + h_b/2
                 img = img.rotate(angle, center=center)
-                img.crop((left,upper,right,lower))
+                img = img.crop((left,upper,right,lower))
         # Mask background using segmentation mask and crop to bounding box.
         elif self.img_load == "bbox_mask":
             if (not np.any(pd.isnull(segmentation))):
@@ -885,6 +885,7 @@ class WildlifeDataset:
 # Alias for WildlifeDataset
 class DatasetFactory(WildlifeDataset):
     pass
+
 
 
 

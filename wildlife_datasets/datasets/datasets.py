@@ -258,7 +258,7 @@ class WildlifeDataset:
         if self.img_load in ["obb"]:
             data = self.df.iloc[idx]
             if not ("obb" in data):
-                raise ValueError(f"{self.img_load} selected but no bbox found.")
+                raise ValueError(f"{self.img_load} selected but no obb found.")
             if type(data["obb"]) == str:
                 obb = json.loads(data["obb"])
             else:
@@ -283,7 +283,7 @@ class WildlifeDataset:
                 img = img.crop((bbox[0]-self.bbox_padding, bbox[1]-self.bbox_padding, bbox[0] + bbox[2]+self.bbox_padding, bbox[1] + bbox[3]+self.bbox_padding))
         # Crop to oriented bounding box
         elif self.img_load == "obb":
-            if not np.any(pd.isnull(bbox)):
+            if not np.any(pd.isnull(obb)):
                 center = (obb[0],obb[1])
                 angle = obb[4]*180/math.pi
                 w_b = obb[2]
@@ -885,6 +885,7 @@ class WildlifeDataset:
 # Alias for WildlifeDataset
 class DatasetFactory(WildlifeDataset):
     pass
+
 
 
 

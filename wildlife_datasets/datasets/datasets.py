@@ -254,6 +254,15 @@ class WildlifeDataset:
                 bbox = json.loads(data["bbox"])
             else:
                 bbox = data["bbox"]
+        # Prepare for obb
+        if self.img_load in ["obb"]:
+            data = self.df.iloc[idx]
+            if not ("obb" in data):
+                raise ValueError(f"{self.img_load} selected but no bbox found.")
+            if type(data["obb"]) == str:
+                obb = json.loads(data["obb"])
+            else:
+                obb = data["obb"]
         
         # Load full image as it is.
         if self.img_load == "full":
@@ -876,5 +885,6 @@ class WildlifeDataset:
 # Alias for WildlifeDataset
 class DatasetFactory(WildlifeDataset):
     pass
+
 
 

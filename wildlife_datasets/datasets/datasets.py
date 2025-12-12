@@ -272,6 +272,19 @@ class WildlifeDataset:
         elif self.img_load == "bbox":
             if not np.any(pd.isnull(bbox)):
                 img = img.crop((bbox[0]-self.bbox_padding, bbox[1]-self.bbox_padding, bbox[0] + bbox[2]+self.bbox_padding, bbox[1] + bbox[3]+self.bbox_padding))
+        # Crop to oriented bounding box
+        elif self.img_load == "obb":
+            if not np.any(pd.isnull(bbox)):
+                center = (obb[0],obb[1])
+                angle = obb[4]*180/math.pi
+                w_b = obb[2]
+                h_b = obb[3]
+                left = center[0] - w_b/2.
+                upper = center[1] - h_b/2.
+                right = center[0] + w_b/2.
+                lower = center[1] + h_b/2
+                img = img.rotate(angle, center=center)
+                img.crop((left,upper,right,lower))
         # Mask background using segmentation mask and crop to bounding box.
         elif self.img_load == "bbox_mask":
             if (not np.any(pd.isnull(segmentation))):
@@ -863,4 +876,5 @@ class WildlifeDataset:
 # Alias for WildlifeDataset
 class DatasetFactory(WildlifeDataset):
     pass
+
 
